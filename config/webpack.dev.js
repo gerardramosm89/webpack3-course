@@ -1,13 +1,15 @@
 const path = require("path");
 const webpack = require("webpack");
+const HTMLWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    main: ["babel-polyfill","./src/main.js"]
+    main: ["./src/main.js"]
   },
   output: {
     filename: "[name]-bundle.js",
-    path: path.resolve(__dirname, "../dist")
+    path: path.resolve(__dirname, "../dist"),
+    publicPath: "/"
   },
   devServer: {
     contentBase: "dist",
@@ -17,6 +19,7 @@ module.exports = {
       colors: true
     }
   },
+  devtool: "source-map",
   module: {
     rules: [
       {
@@ -43,15 +46,6 @@ module.exports = {
         test: /\.html$/,
         use: [
           {
-            loader: "file-loader",
-            options: {
-              name: "[name].html"
-            }
-          },
-          {
-            loader: "extract-loader"
-          },
-          {
             loader: "html-loader",
             options: {
               attrs: ["img:src"]
@@ -74,6 +68,9 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    new HTMLWebpackPlugin({
+      template: "./src/index.html"
+    })
   ]
 }
