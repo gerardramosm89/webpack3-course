@@ -3,7 +3,7 @@ console.log('__dirname is: ', __dirname);
 console.log('path.resolve(__dirname, "../dist") is: ', path.resolve(__dirname, "../dist"));
 module.exports = {
   entry: {
-    main: ["./src/main.js"]
+    main: ['babel-polyfill', "./src/main.js"]
   },
   output: {
     filename: "[name]-bundle.js",
